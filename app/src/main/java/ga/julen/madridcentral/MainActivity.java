@@ -1,5 +1,6 @@
 package ga.julen.madridcentral;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -7,9 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private String pagina = "https://www.madrid.es/portales/munimadrid/es/Inicio/Movilidad-y-transportes/Incidencias-de-Trafico/Criterios-de-Acceso-y-Autorizaciones/?vgnextfmt=default&vgnextoid=b22fda4581f64610VgnVCM2000001f4a900aRCRD&vgnextchannel=2e30a90d698b1610VgnVCM1000001d4a900aRCRD&rm=60d75ae1b0f64610VgnVCM1000001d4a900aRCRD#";
     private ArrayList<Criterio> criterios;
     private Context context;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,16 @@ public class MainActivity extends AppCompatActivity {
     private class Datos extends AsyncTask<Void, Void, Void> {
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(MainActivity.this);
+            progressDialog.setTitle("Madrid Central");
+            progressDialog.setMessage("Cargando...");
+            progressDialog.setIndeterminate(false);
+            progressDialog.show();
+        }
+
+        @Override
         protected Void doInBackground(Void... voids) {
             criterios = new ArrayList<>();
             try {
@@ -43,11 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 Elements detalles = document.select("div[class=content-panel-detalle panel-body]");
                 for (int i = 0; i < titulos.size(); i++) {
                     String titulo = titulos.get(i).text();
-                    StringBuilder detalle = new StringBuilder();
-                    for (int j = 0; j < detalles.size(); j++) {
-                        detalle.append(detalles.get(j).text());
-                    }
-                    criterios.add(new Criterio(i, titulo, detalle.toString()));
+                    Elements detalle = detalles.get(i).select("div[class=tiny-text]");
+                    criterios.add(new Criterio(i, titulo, detalle.html()));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -67,14 +76,15 @@ public class MainActivity extends AppCompatActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     LayoutInflater inflater = LayoutInflater.from(context);
                     View view = inflater.inflate(R.layout.view_detalle, null);
-                    TextView lblDetalle = view.findViewById(R.id.lbl_detalle);
-                    lblDetalle.setText(criterio.getDetalle());
+                    WebView webView = view.findViewById(R.id.web_view);
+                    webView.loadData(criterio.getDetalle(), "text/html; charset=utf-8", null);
                     builder.setTitle(criterio.getNombre())
                             .setView(view)
                             .setPositiveButton("OK", null)
                             .show();
                 }
             });
+            progressDialog.dismiss();
         }
 
     }
