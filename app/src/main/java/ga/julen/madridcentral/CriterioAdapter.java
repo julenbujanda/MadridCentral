@@ -25,7 +25,7 @@ public class CriterioAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Criterio getItem(int position) {
         return criterios.get(position);
     }
 
