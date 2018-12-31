@@ -19,8 +19,14 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Clase Principal
+ *
+ * @author Julen Bujanda
+ */
 public class MainActivity extends AppCompatActivity {
 
+    // Página de la que se extraerán los datos
     private String pagina = "https://www.madrid.es/portales/munimadrid/es/Inicio/Movilidad-y-transportes/Incidencias-de-Trafico/Criterios-de-Acceso-y-Autorizaciones/?vgnextfmt=default&vgnextoid=b22fda4581f64610VgnVCM2000001f4a900aRCRD&vgnextchannel=2e30a90d698b1610VgnVCM1000001d4a900aRCRD&rm=60d75ae1b0f64610VgnVCM1000001d4a900aRCRD#";
     private ArrayList<Criterio> criterios;
     private Context context;
@@ -34,8 +40,17 @@ public class MainActivity extends AppCompatActivity {
         new Datos().execute();
     }
 
+    /**
+     * AsyncTask que recupera los datos de la página web del Ayuntamiento de Madrid
+     *
+     * @see android.os.AsyncTask
+     */
     private class Datos extends AsyncTask<Void, Void, Void> {
 
+        /**
+         * Crea un ProgressDialog que se mostrará hasta que se carguen por completo
+         * los datos
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -46,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.show();
         }
 
+        /**
+         * Usa la librería JSoup para extraer los datos de la página del
+         * Ayuntamiento de Madrid
+         * @param voids
+         * @return
+         */
         @Override
         protected Void doInBackground(Void... voids) {
             criterios = new ArrayList<>();
