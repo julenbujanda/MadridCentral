@@ -56,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < titulos.size(); i++) {
                     String titulo = titulos.get(i).text();
                     Elements detalle = detalles.get(i).select("div[class=tiny-text]");
-                    criterios.add(new Criterio(i, titulo, detalle.html()));
+                    // language=HTML
+                    String html = "<body style=\"text-align: justify;\">" + detalle.html() + "</body>";
+                    criterios.add(new Criterio(i, titulo, html));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
