@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     // Página de la que se extraerán los datos
-    private String pagina = "https://www.madrid.es/portales/munimadrid/es/Inicio/Movilidad-y-transportes/Incidencias-de-Trafico/Criterios-de-Acceso-y-Autorizaciones/?vgnextfmt=default&vgnextoid=b22fda4581f64610VgnVCM2000001f4a900aRCRD&vgnextchannel=2e30a90d698b1610VgnVCM1000001d4a900aRCRD&rm=60d75ae1b0f64610VgnVCM1000001d4a900aRCRD#";
+    private String pagina;
     private ArrayList<Criterio> criterios;
     private Context context;
     private ProgressDialog progressDialog;
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Usa la librería JSoup para extraer los datos de la página del
          * Ayuntamiento de Madrid
+         *
          * @param voids
          * @return
          */
