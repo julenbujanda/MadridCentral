@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
+        pagina = getString(R.string.madrid_central_web_page);
         new Datos().execute();
     }
 
