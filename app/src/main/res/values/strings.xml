@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MadridCentral</string>
+    <string name="madrid_central_web_page"><![CDATA[https://www.madrid.es/portales/munimadrid/es/Inicio/Movilidad-y-transportes/Incidencias-de-Trafico/Criterios-de-Acceso-y-Autorizaciones/?vgnextfmt=default&vgnextoid=b22fda4581f64610VgnVCM2000001f4a900aRCRD&vgnextchannel=2e30a90d698b1610VgnVCM1000001d4a900aRCRD&rm=60d75ae1b0f64610VgnVCM1000001d4a900aRCRD#]]></string>
 </resources>
